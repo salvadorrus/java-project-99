@@ -28,7 +28,7 @@ public abstract class UserMapper {
     @Mapping(target = "passwordDigest", source = "password")
     public abstract User map(UserCreateDTO model);
 
-    @Mapping(target = "password", ignore = true)
+    //@Mapping(target = "password", ignore = true)
     public abstract UserDTO map(User model);
 
     public abstract void update(UserUpdateDTO update, @MappingTarget User destination);

@@ -39,10 +39,7 @@ public class User implements BaseEntity, UserDetails {
     @GeneratedValue(strategy = IDENTITY)
     private long id;
 
-    @NotBlank
     private String firstName;
-
-    @NotBlank
     private String lastName;
 
     @Email
@@ -57,9 +54,6 @@ public class User implements BaseEntity, UserDetails {
 
     @LastModifiedDate
     private LocalDate updatedAt;
-
-//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-//    private List<Article> articles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
