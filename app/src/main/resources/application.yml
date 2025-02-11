@@ -7,7 +7,13 @@ spring:
     ansi:
       enabled: always
   profiles:
-      default: development
+    default: development
+  application:
+    name: app
+
+  h2:
+    console:
+      enabled: true
 
 rsa:
   private-key: classpath:certs/private.pem
