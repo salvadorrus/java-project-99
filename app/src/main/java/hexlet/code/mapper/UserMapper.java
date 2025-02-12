@@ -26,12 +26,13 @@ public abstract class UserMapper {
     private PasswordEncoder passwordEncoder;
 
     @Mapping(target = "passwordDigest", source = "password")
-    public abstract User map(UserCreateDTO model);
+    public abstract User map(UserCreateDTO dto);
 
-    //@Mapping(target = "password", ignore = true)
     public abstract UserDTO map(User model);
 
-    public abstract void update(UserUpdateDTO update, @MappingTarget User destination);
+    public abstract void update(UserUpdateDTO dto, @MappingTarget User model);
+
+    public abstract UserCreateDTO mapToCreateDTO(User model);
 
     @BeforeMapping
     public void encryptPassword(UserCreateDTO data) {
