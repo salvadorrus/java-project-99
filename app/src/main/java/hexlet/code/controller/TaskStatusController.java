@@ -1,6 +1,7 @@
 package hexlet.code.controller;
 
 
+import hexlet.code.dto.TaskStatusDTO;
 import hexlet.code.dto.UserCreateDTO;
 import hexlet.code.dto.UserDTO;
 import hexlet.code.dto.UserUpdateDTO;
@@ -22,7 +23,7 @@ public class TaskStatusController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<UserDTO>> index() {
+    public ResponseEntity<List<TaskStatusDTO>> index() {
         var result = userService.getAll();
         return ResponseEntity.ok()
                 .header("X-Total-Count", String.valueOf(result.size()))

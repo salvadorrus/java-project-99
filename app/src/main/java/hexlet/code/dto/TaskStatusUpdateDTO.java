@@ -10,12 +10,12 @@ import org.openapitools.jackson.nullable.JsonNullable;
 @Getter
 @Setter
 public final class TaskStatusUpdateDTO {
-    @NotNull
+    //@NotNull
     @NotBlank
     @Size(min = 1)
     private JsonNullable<String> name;
 
-    @NotNull
+    //@NotNull
     @NotBlank
     @Size(min = 1)
     private JsonNullable<String> slug;
