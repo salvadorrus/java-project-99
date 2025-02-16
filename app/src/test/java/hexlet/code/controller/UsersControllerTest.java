@@ -32,19 +32,19 @@
 //        assertThatJson(body).isArray();
 //    }
 //
-//    @Test
-//    void show() {
-//    }
-//
-//    @Test
-//    void create() {
-//    }
-//
-//    @Test
-//    void update() {
-//    }
-//
-//    @Test
-//    void delete() {
-//    }
+////    @Test
+////    void show() {
+////    }
+////
+////    @Test
+////    void create() {
+////    }
+////
+////    @Test
+////    void update() {
+////    }
+////
+////    @Test
+////    void delete() {
+////    }
 //}

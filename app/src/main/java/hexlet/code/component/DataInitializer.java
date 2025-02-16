@@ -1,6 +1,8 @@
 package hexlet.code.component;
 
+import hexlet.code.dto.TaskStatusCreateDTO;
 import hexlet.code.dto.UserCreateDTO;
+import hexlet.code.service.TaskStatusService;
 import hexlet.code.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class DataInitializer implements ApplicationRunner {
     @Autowired
     private final UserService userService;
 
+    @Autowired
+    private final TaskStatusService taskStatusService;
+
     @Override
     public void run(ApplicationArguments args) {
         var email = "hexlet@example.com";
@@ -22,5 +27,26 @@ public class DataInitializer implements ApplicationRunner {
         userData.setEmail(email);
         userData.setPassword("qwerty");
         userService.create(userData);
+
+        var taskStatus = new TaskStatusCreateDTO();
+        taskStatus.setName("Draft");
+        taskStatus.setSlug("draft");
+        taskStatusService.create(taskStatus);
+
+        taskStatus.setName("ToReview");
+        taskStatus.setSlug("to_review");
+        taskStatusService.create(taskStatus);
+
+        taskStatus.setName("ToBeFixed");
+        taskStatus.setSlug("to_be_fixed");
+        taskStatusService.create(taskStatus);
+
+        taskStatus.setName("ToPublish");
+        taskStatus.setSlug("to_publish");
+        taskStatusService.create(taskStatus);
+
+        taskStatus.setName("Published");
+        taskStatus.setSlug("published");
+        taskStatusService.create(taskStatus);
     }
 }
