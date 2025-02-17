@@ -6,22 +6,18 @@ import hexlet.code.dto.user.UserUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.repository.UserRepository;
-import hexlet.code.utils.UserUtils;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserService {
-    @Autowired
+
     private UserRepository userRepository;
-
-    @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private UserUtils userUtils;
 
     public List<UserDTO> getAll() {
         var users = userRepository.findAll();
@@ -35,9 +31,9 @@ public class UserService {
     }
 
     public UserDTO findById(Long id) {
-        var post = userRepository.findById(id)
+        var user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not Found: " + id));
-        return userMapper.map(post);
+        return userMapper.map(user);
     }
 
     public UserDTO update(UserUpdateDTO userData, Long id) {

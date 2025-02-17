@@ -6,18 +6,17 @@ import hexlet.code.dto.label.LabelUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.LabelMapper;
 import hexlet.code.repository.LabelRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class LabelService {
 
-    @Autowired
     private LabelRepository labelRepository;
-
-    @Autowired
     private LabelMapper labelMapper;
 
     public List<LabelDTO> getAll() {
@@ -38,11 +37,11 @@ public class LabelService {
     }
 
     public LabelDTO update(LabelUpdateDTO labelData, Long id) {
-        var task = labelRepository.findById(id)
+        var label = labelRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not Found"));
-        labelMapper.update(labelData, task);
-        labelRepository.save(task);
-        return labelMapper.map(task);
+        labelMapper.update(labelData, label);
+        labelRepository.save(label);
+        return labelMapper.map(label);
     }
 
     public void delete(Long id) {
