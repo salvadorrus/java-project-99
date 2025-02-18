@@ -16,7 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 public class LabelService {
 
+    @Autowired
     private LabelRepository labelRepository;
+
+    @Autowired
     private LabelMapper labelMapper;
 
     public List<LabelDTO> getAll() {

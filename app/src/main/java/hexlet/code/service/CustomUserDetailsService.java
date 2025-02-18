@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsManager {
 
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override

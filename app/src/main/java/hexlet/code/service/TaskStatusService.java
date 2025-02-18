@@ -16,7 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskStatusService {
 
+    @Autowired
     private TaskStatusRepository taskStatusRepository;
+
+    @Autowired
     private TaskStatusMapper taskStatusMapper;
 
     public List<TaskStatusDTO> getAll() {

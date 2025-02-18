@@ -1,6 +1,7 @@
 package hexlet.code.config;
 
 import hexlet.code.service.CustomUserDetailsService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@AllArgsConstructor
 public class SecurityConfig {
     @Autowired
     private JwtDecoder jwtDecoder;
@@ -44,6 +46,7 @@ public class SecurityConfig {
                         .requestMatchers(mvcMatcherBuilder.pattern("/welcome")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/index.html")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/v3/api-docs/**")).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer((rs) -> rs.jwt((jwt) -> jwt.decoder(jwtDecoder)))

@@ -6,6 +6,7 @@ import hexlet.code.dto.taskStatus.TaskStatusDTO;
 import hexlet.code.dto.taskStatus.TaskStatusUpdateDTO;
 import hexlet.code.service.TaskStatusService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/task_statuses")
+@AllArgsConstructor
 public class TaskStatusController {
 
     @Autowired
@@ -31,13 +33,14 @@ public class TaskStatusController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<TaskStatusDTO>> index() {
-        var result = taskStatusService.getAll();
+        var taskStatus = taskStatusService.getAll();
         return ResponseEntity.ok()
-                .header("X-Total-Count", String.valueOf(result.size()))
-                .body(result);
+                .header("X-Total-Count", String.valueOf(taskStatus.size()))
+                .body(taskStatus);
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public TaskStatusDTO show(@PathVariable long id) {
         return taskStatusService.findById(id);
     }
@@ -49,6 +52,7 @@ public class TaskStatusController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public TaskStatusDTO update(@PathVariable long id, @Valid @RequestBody TaskStatusUpdateDTO taskStatusData) {
         return taskStatusService.update(taskStatusData, id);
     }

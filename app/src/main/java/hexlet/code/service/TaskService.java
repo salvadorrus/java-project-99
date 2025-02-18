@@ -18,7 +18,10 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskService {
 
+    @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
     private TaskMapper taskMapper;
 
     @Autowired

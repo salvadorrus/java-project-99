@@ -5,6 +5,7 @@ import hexlet.code.dto.label.LabelDTO;
 import hexlet.code.dto.label.LabelUpdateDTO;
 import hexlet.code.service.LabelService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/labels")
+@AllArgsConstructor
 public class LabelController {
 
     @Autowired
@@ -22,13 +24,14 @@ public class LabelController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<LabelDTO>> index() {
-        var result = labelService.getAll();
+        var label = labelService.getAll();
         return ResponseEntity.ok()
-                .header("X-Total-Count", String.valueOf(result.size()))
-                .body(result);
+                .header("X-Total-Count", String.valueOf(label.size()))
+                .body(label);
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public LabelDTO show(@PathVariable long id) {
         return labelService.findById(id);
     }
@@ -40,6 +43,7 @@ public class LabelController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public LabelDTO update(@PathVariable long id, @Valid @RequestBody LabelUpdateDTO labelData) {
         return labelService.update(labelData, id);
     }

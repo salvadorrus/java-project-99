@@ -16,7 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 public class UserService {
 
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
     private UserMapper userMapper;
 
     public List<UserDTO> getAll() {

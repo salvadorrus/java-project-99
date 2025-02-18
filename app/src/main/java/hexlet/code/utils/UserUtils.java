@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class UserUtils {
+
     @Autowired
     private UserRepository userRepository;
 
