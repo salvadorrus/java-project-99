@@ -10,6 +10,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -34,11 +35,15 @@ public class User implements BaseEntity, UserDetails {
     @GeneratedValue(strategy = IDENTITY)
     private long id;
 
+    @ToString.Include
     private String firstName;
+
+    @ToString.Include
     private String lastName;
 
     @Email
     @Column(unique = true)
+    @ToString.Include
     private String email;
 
     @NotBlank

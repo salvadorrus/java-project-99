@@ -1,8 +1,8 @@
 package hexlet.code.util;
 
-import hexlet.code.model.Label;
-import hexlet.code.model.Task;
-import hexlet.code.model.TaskStatus;
+//import hexlet.code.model.Label;
+//import hexlet.code.model.Task;
+//import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -18,9 +18,9 @@ import org.springframework.stereotype.Component;
 public class ModelGenerator {
 
     private Model<User> userModel;
-    private Model<TaskStatus> taskStatusModel;
-    private Model<Task> taskModel;
-    private Model<Label> labelModel;
+//    private Model<TaskStatus> taskStatusModel;
+//    private Model<Task> taskModel;
+//    private Model<Label> labelModel;
 
     @Autowired
     private Faker faker;
