@@ -1,11 +1,7 @@
 package hexlet.code.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.*;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import jakarta.validation.constraints.Email;
@@ -23,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -59,6 +56,9 @@ public class User implements BaseEntity, UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>();
     }
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Task> tasks = new ArrayList<>();
 
     @Override
     public String getPassword() {

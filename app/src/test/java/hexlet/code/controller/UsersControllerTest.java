@@ -33,7 +33,7 @@ import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class UsersControllerTest {
 
     @Autowired
@@ -77,7 +77,7 @@ class UsersControllerTest {
 
     @Test
     public void testIndex() throws Exception {
-        var result = mockMvc.perform(get("/api/users").with(jwt()))
+        var result = mockMvc.perform(get("/api/users").with(token))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -87,7 +87,7 @@ class UsersControllerTest {
 
     @Test
     public void testShow() throws Exception {
-        var request = get("/api/users/" + testUser.getId()).with(jwt());
+        var request = get("/api/users/" + testUser.getId()).with(token);
         var result = mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andReturn();
@@ -100,22 +100,18 @@ class UsersControllerTest {
 
     @Test
     public void testCreate() throws Exception {
-        var data = Instancio.of(modelGenerator.getUserModel())
-                .create();
-
-        var request = post("/api/users")
-                .with(token)
+        var request = post("/api/users").with(token)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(data));
+                .content(om.writeValueAsString(testUser));
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
 
-        var user = userRepository.findByEmail(data.getEmail()).orElse(null);
+        var user = userRepository.findByEmail(testUser.getEmail()).orElse(null);
 
         assertNotNull(user);
-        assertThat(user.getFirstName()).isEqualTo(data.getFirstName());
-        assertThat(user.getLastName()).isEqualTo(data.getLastName());
-        assertThat(user.getEmail()).isEqualTo(data.getEmail());
+        assertThat(user.getFirstName()).isEqualTo(testUser.getFirstName());
+        assertThat(user.getLastName()).isEqualTo(testUser.getLastName());
+        assertThat(user.getEmail()).isEqualTo(testUser.getEmail());
     }
 
 //    @Test
@@ -138,7 +134,6 @@ class UsersControllerTest {
 
 //    @Test
 //    public void testDelete() throws Exception {
-//        userRepository.save(testUser);
 //        var request = delete("/api/users/" + testUser.getId()).with(token);
 //        mockMvc.perform(request).andExpect(status().isNoContent());
 //        assertThat(userRepository.existsById(testUser.getId())).isEqualTo(false);
