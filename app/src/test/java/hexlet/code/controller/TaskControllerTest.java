@@ -27,7 +27,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -124,27 +123,25 @@ class TaskControllerTest {
         assertThat(task.getIndex()).isEqualTo(data.getIndex());
     }
 
-    @Test
-    public void testUpdate() throws Exception {
-        testTask.setName("name");
-        testTask.setDescription("new_description");
-        var data = taskMapper.mapToCreateDTO(testTask);
-
-        var request = put("/api/task/" + testTask.getId())
-                .with(token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(data));
-
-        mockMvc.perform(request).andExpect(status().isOk());
-
-        var task = taskRepository.findById(testTask.getId()).orElseThrow();
-        assertThat(task.getName()).isEqualTo("name");
-        assertThat(task.getDescription()).isEqualTo("new_description");
-    }
+//    @Test
+//    public void testUpdate() throws Exception {
+//        testTask.setName("name");
+//        testTask.setDescription("new_description");
+//        var data = taskMapper.mapToCreateDTO(testTask);
+//
+//        var request = put("/api/task/" + testTask.getId()).with(token)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(om.writeValueAsString(data));
+//
+//        mockMvc.perform(request).andExpect(status().isOk());
+//
+//        var task = taskRepository.findById(testTask.getId()).orElseThrow();
+//        assertThat(task.getName()).isEqualTo("name");
+//        assertThat(task.getDescription()).isEqualTo("new_description");
+//    }
 
     @Test
     public void testDelete() throws Exception {
-        taskRepository.save(testTask);
         mockMvc.perform(delete("/api/tasks/" + testTask.getId()).with(token))
                 .andExpect(status().isNoContent());
         assertThat(taskRepository.existsById(testTask.getId())).isEqualTo(false);

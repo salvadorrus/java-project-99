@@ -111,8 +111,7 @@ class LabelControllerTest {
         testLabel.setName("name");
         var data = labelMapper.mapToCreateDTO(testLabel);
 
-        var request = put("/api/labels/" + testLabel.getId())
-                .with(token)
+        var request = put("/api/labels/" + testLabel.getId()).with(token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(data));
         mockMvc.perform(request).andExpect(status().isOk());
