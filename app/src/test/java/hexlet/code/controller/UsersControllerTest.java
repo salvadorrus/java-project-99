@@ -16,7 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import org.springframework.test.annotation.DirtiesContext;
+//import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -100,42 +100,48 @@ class UsersControllerTest {
 
     @Test
     public void testCreate() throws Exception {
+        var data = Instancio.of(modelGenerator.getUserModel())
+                .create();
+
         var request = post("/api/users").with(token)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(testUser));
+                .content(om.writeValueAsString(data));
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
 
-        var user = userRepository.findByEmail(testUser.getEmail()).orElse(null);
+        var user = userRepository.findByEmail(data.getEmail()).orElse(null);
 
         assertNotNull(user);
-        assertThat(user.getFirstName()).isEqualTo(testUser.getFirstName());
-        assertThat(user.getLastName()).isEqualTo(testUser.getLastName());
-        assertThat(user.getEmail()).isEqualTo(testUser.getEmail());
+        assertThat(user.getFirstName()).isEqualTo(data.getFirstName());
+        assertThat(user.getLastName()).isEqualTo(data.getLastName());
+        assertThat(user.getEmail()).isEqualTo(data.getEmail());
     }
 
-//    @Test
-//    public void testUpdate() throws Exception {
-//
-//        var data = new HashMap<>();
-//        data.put("firstName", "Mike");
-//
-//        var request = put("/api/users/" + testUser.getId())
-//                .with(token)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(om.writeValueAsString(data));
-//
-//        mockMvc.perform(request)
-//                .andExpect(status().isOk());
-//
-//        var user = userRepository.findById(testUser.getId()).orElseThrow();
-//        assertThat(user.getFirstName()).isEqualTo(("Mike"));
-//    }
+    @Test
+    public void testUpdate() throws Exception {
+        testUser.setFirstName("first_name");
+        testUser.setLastName("last_name");
+        testUser.setEmail("email");
 
-//    @Test
-//    public void testDelete() throws Exception {
-//        var request = delete("/api/users/" + testUser.getId()).with(token);
-//        mockMvc.perform(request).andExpect(status().isNoContent());
-//        assertThat(userRepository.existsById(testUser.getId())).isEqualTo(false);
-//    }
+        var data = userMapper.mapToCreateDTO(testUser);
+
+        var request = put("/api/users/" + testUser.getId())
+                .with(token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(data));
+
+        mockMvc.perform(request).andExpect(status().isOk());
+
+        var user = userRepository.findById(testUser.getId()).orElseThrow();
+        assertThat(user.getFirstName()).isEqualTo(("first_name"));
+        assertThat(user.getLastName()).isEqualTo(("last_name"));
+        assertThat(user.getEmail()).isEqualTo(("email"));
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+        var request = delete("/api/users/" + testUser.getId()).with(token);
+        mockMvc.perform(request).andExpect(status().isNoContent());
+        assertThat(userRepository.existsById(testUser.getId())).isEqualTo(false);
+    }
 }

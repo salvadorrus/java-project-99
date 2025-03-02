@@ -20,9 +20,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -90,24 +93,34 @@ class LabelControllerTest {
 
     @Test
     public void testCreate() throws Exception {
-        var data = labelMapper.map(testLabel);
+        var data = Instancio.of(modelGenerator.getLabelModel())
+                .create();
 
-        var request = post("/api/tasks").with(token)
+        var request = post("/api/labels").with(token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(data));
-        mockMvc.perform(request)
-                .andExpect(status().isCreated());
+        mockMvc.perform(request).andExpect(status().isCreated());
 
-        var label = labelRepository.findById(data.getId()).orElse(null);
-
+        var label = labelRepository.findByName(data.getName()).orElse(null);
         assertNotNull(label);
         assertThat(label.getName()).isEqualTo(data.getName());
     }
 
-    //    @Test
-//    void update() {
-//    }
-//
+    @Test
+    public void testUpdate() throws Exception {
+        testLabel.setName("name");
+        var data = labelMapper.mapToCreateDTO(testLabel);
+
+        var request = put("/api/labels/" + testLabel.getId())
+                .with(token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(data));
+        mockMvc.perform(request).andExpect(status().isOk());
+
+        var label = labelRepository.findById(testLabel.getId()).orElseThrow();
+        assertThat(label.getName()).isEqualTo("name");
+    }
+
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete("/api/labels/" + testLabel.getId()).with(token))
