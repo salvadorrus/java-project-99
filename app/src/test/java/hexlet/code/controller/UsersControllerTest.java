@@ -1,7 +1,6 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
@@ -133,8 +132,6 @@ class UsersControllerTest {
 //        assertThat(user.getLastName()).isEqualTo(("last_name"));
 //        assertThat(user.getEmail()).isEqualTo(("email"));
 //    }
-
-
 
     @Test
     public void testDelete() throws Exception {
