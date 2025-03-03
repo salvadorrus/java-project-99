@@ -25,11 +25,6 @@ public class UserUtils {
                 .orElseThrow(() -> new AuthenticationCredentialsNotFoundException("Not Authorised"));
     }
 
-//    public User getTestUser() {
-//        return userRepository.findByEmail("hexlet@example.com")
-//                .orElseThrow(() -> new RuntimeException("User doesn't exist"));
-//    }
-
     public boolean isUser(long id) {
         var userEmail = userRepository.findById(id).get().getEmail();
         var authentication = SecurityContextHolder.getContext().getAuthentication();
