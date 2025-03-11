@@ -1,7 +1,7 @@
 package hexlet.code.model;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -63,7 +63,7 @@ public class User implements BaseEntity, UserDetails {
         return new ArrayList<>();
     }
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "assignee", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Task> tasks = new ArrayList<>();
 
     @Override

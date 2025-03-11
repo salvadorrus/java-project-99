@@ -6,7 +6,6 @@ import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.util.ModelGenerator;
 import org.instancio.Instancio;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+//import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -33,6 +33,7 @@ import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class UsersControllerTest {
 
     @Autowired
@@ -50,15 +51,15 @@ class UsersControllerTest {
     @Autowired
     private UserMapper userMapper;
 
-    private SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor token;
-
-    private User testUser;
-
     @Autowired
     private ObjectMapper om;
 
+    private SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor token;
+    private User testUser;
+
     @BeforeEach
     public void setUp() {
+        userRepository.deleteAll();
         mockMvc = MockMvcBuilders.webAppContextSetup(wac)
                 .defaultResponseCharacterEncoding(StandardCharsets.UTF_8)
                 .apply(springSecurity())
@@ -67,11 +68,6 @@ class UsersControllerTest {
         testUser = Instancio.of(modelGenerator.getUserModel()).create();
         userRepository.save(testUser);
         token = jwt().jwt(builder -> builder.subject(testUser.getEmail()));
-    }
-
-    @AfterEach
-    public void clear() {
-        userRepository.deleteAll();
     }
 
     @Test
@@ -86,6 +82,7 @@ class UsersControllerTest {
 
     @Test
     public void testShow() throws Exception {
+
         var request = get("/api/users/" + testUser.getId()).with(token);
         var result = mockMvc.perform(request)
                 .andExpect(status().isOk())
