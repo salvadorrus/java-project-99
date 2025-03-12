@@ -24,9 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.StandardCharsets;
@@ -130,6 +128,26 @@ class UsersControllerTest {
 //        assertThat(user.getFirstName()).isEqualTo((testUser.getFirstName()));
 //        assertThat(user.getLastName()).isEqualTo(("last_name"));
 //        assertThat(user.getEmail()).isEqualTo(("email"));
+//    }
+
+//    @Test
+//    public void testUpdate() throws Exception {
+//        var data = new UserUpdateDTO();
+//        data.setFirstName(JsonNullable.of("first_name"));
+//        data.setLastName(JsonNullable.of("last_name"));
+//        data.setEmail(JsonNullable.of("email"));
+//
+//        var request = put("/api/users/" + testUser.getId(), testUser.getId()).with(token)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(om.writeValueAsString(data));
+//        mockMvc.perform(request).andExpect(status().isOk()).andReturn();
+//        ;
+//
+//        var user = userRepository.findById(testUser.getId()).orElseThrow();
+//        assertNotNull(user);
+//        assertThat(user.getFirstName()).isEqualTo((data.getFirstName().get()));
+//        assertThat(user.getLastName()).isEqualTo((data.getLastName().get()));
+//        assertThat(user.getEmail()).isEqualTo((data.getEmail().get()));
 //    }
 
     @Test

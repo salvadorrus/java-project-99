@@ -28,10 +28,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
-@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "users")
 public class User implements BaseEntity, UserDetails {
 
     @Id

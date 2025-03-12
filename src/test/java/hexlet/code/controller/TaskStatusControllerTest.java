@@ -1,6 +1,7 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.dto.taskStatus.TaskStatusUpdateDTO;
 import hexlet.code.mapper.TaskStatusMapper;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
@@ -10,6 +11,7 @@ import hexlet.code.util.ModelGenerator;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +27,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -105,24 +108,24 @@ class TaskStatusControllerTest {
         assertThat(taskStatus.getSlug()).isEqualTo(data.getSlug());
     }
 
-//    @Test
-//    public void testUpdate() throws Exception {
-//        testTaskStatus.setName("name");
-//        testTaskStatus.setSlug("new_slug");
-//
-//        var data = taskStatusMapper.mapToCreateDTO(testTaskStatus);
-//
-//        var request = put("/api/task_statuses/" + testTaskStatus.getId())
-//                .with(token)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(om.writeValueAsString(data));
-//
-//        mockMvc.perform(request).andExpect(status().isOk());
-//
-//        var taskStatus = taskStatusRepository.findById(testTaskStatus.getId()).orElseThrow();
-//        assertThat(taskStatus.getName()).isEqualTo("name");
-//        assertThat(taskStatus.getSlug()).isEqualTo("new_slug");
-//    }
+    @Test
+    public void testUpdate() throws Exception {
+        var data = new TaskStatusUpdateDTO();
+        data.setName(JsonNullable.of("new_name"));
+        data.setSlug(JsonNullable.of("new_slug"));
+
+        var request = put("/api/task_statuses/" + testTaskStatus.getId())
+                .with(token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(data));
+
+        mockMvc.perform(request).andExpect(status().isOk());
+
+        var taskStatus = taskStatusRepository.findById(testTaskStatus.getId()).orElseThrow();
+        assertNotNull(taskStatus);
+        assertThat(taskStatus.getName()).isEqualTo(data.getName().get());
+        assertThat(taskStatus.getSlug()).isEqualTo(data.getSlug().get());
+    }
 
     @Test
     public void testDelete() throws Exception {
