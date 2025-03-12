@@ -57,6 +57,7 @@ class TaskStatusControllerTest {
     @BeforeEach
     public void setUp() {
         taskStatusRepository.deleteAll();
+        userRepository.deleteAll();
         testTaskStatus = Instancio.of(modelGenerator.getTaskStatusModel()).create();
         taskStatusRepository.save(testTaskStatus);
         testUser = Instancio.of(modelGenerator.getUserModel()).create();
