@@ -41,7 +41,7 @@ public class TaskStatusService {
 
     public TaskStatusDTO update(TaskStatusUpdateDTO taskStatusData, Long id) {
         var taskStatus = taskStatusRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Not Found" + id));
         taskStatusMapper.update(taskStatusData, taskStatus);
         taskStatusRepository.save(taskStatus);
         return taskStatusMapper.map(taskStatus);

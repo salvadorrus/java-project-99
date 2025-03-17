@@ -1,6 +1,7 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+//import hexlet.code.dto.user.UserUpdateDTO;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
@@ -9,6 +10,7 @@ import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+//import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,7 +26,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.StandardCharsets;
@@ -110,25 +114,6 @@ class UsersControllerTest {
         assertThat(user.getLastName()).isEqualTo(data.getLastName());
         assertThat(user.getEmail()).isEqualTo(data.getEmail());
     }
-
-//    @Test
-//    public void testUpdate() throws Exception {
-//        userRepository.save(testUser);
-//        testUser.setFirstName("first_name");
-//        testUser.setLastName("last_name");
-//        testUser.setEmail("email");
-//        var data = userMapper.mapToCreateDTO(testUser);
-//
-//        var request = put("/api/users/" + testUser.getId(), testUser.getId()).with(token)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(om.writeValueAsString(data));
-//        mockMvc.perform(request).andExpect(status().isOk()).andReturn();;
-//
-//        var user = userRepository.findById(testUser.getId()).orElseThrow();
-//        assertThat(user.getFirstName()).isEqualTo((testUser.getFirstName()));
-//        assertThat(user.getLastName()).isEqualTo(("last_name"));
-//        assertThat(user.getEmail()).isEqualTo(("email"));
-//    }
 
 //    @Test
 //    public void testUpdate() throws Exception {
