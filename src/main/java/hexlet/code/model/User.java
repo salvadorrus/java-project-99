@@ -1,14 +1,14 @@
 package hexlet.code.model;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
-//import jakarta.persistence.CascadeType;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-//import jakarta.persistence.FetchType;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-//import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Collection;
-//import java.util.List;
+import java.util.List;
 
 @Entity
 @Getter
@@ -60,8 +60,8 @@ public class User implements BaseEntity, UserDetails {
         return new ArrayList<>();
     }
 
-//    @OneToMany(mappedBy = "assignee", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-//    private List<Task> tasks = new ArrayList<>();
+    @OneToMany(mappedBy = "assignee", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<Task> tasks = new ArrayList<>();
 
     @Override
     public String getPassword() {
