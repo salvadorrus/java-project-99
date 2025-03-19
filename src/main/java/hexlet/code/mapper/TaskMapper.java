@@ -59,28 +59,25 @@ public abstract class TaskMapper {
     @Mapping(target = "labels", source = "taskLabelIds", qualifiedByName = "modelToLabel")
     public abstract void update(TaskUpdateDTO dto, @MappingTarget Task model);
 
-    @Mapping(target = "title", source = "name")
-    @Mapping(target = "content", source = "description")
-    @Mapping(target = "status", source = "taskStatus.slug")
-    @Mapping(target = "assigneeId", source = "assignee.id")
-    @Mapping(target = "taskLabelIds", source = "labels", qualifiedByName = "labelToModel")
-    public abstract TaskCreateDTO mapToCreateDTO(Task model);
+//    @Mapping(target = "title", source = "name")
+//    @Mapping(target = "content", source = "description")
+//    @Mapping(target = "status", source = "taskStatus.slug")
+//    @Mapping(target = "assigneeId", source = "assignee.id")
+//    @Mapping(target = "taskLabelIds", source = "labels", qualifiedByName = "labelToModel")
+//    public abstract TaskCreateDTO mapToCreateDTO(Task model);
 
     public abstract List<TaskDTO> map(List<Task> tasks);
 
     @Named("statusToModel")
     public TaskStatus statusToModel(String slug) {
         return taskStatusRepository.findBySlug(slug)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(slug + " not found")
-                );
+                .orElseThrow(() -> new ResourceNotFoundException(slug + " not found"));
     }
 
     @Named("labelToModel")
     public Set<Long> labelToModel(Set<Label> labels) {
         return labels == null ? new HashSet<>() : labels.stream()
-                .map(Label::getId)
-                .collect(Collectors.toSet());
+                .map(Label::getId).collect(Collectors.toSet());
     }
 
     @Named("modelToLabel")
