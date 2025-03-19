@@ -42,7 +42,7 @@ public abstract class TaskMapper {
     @Mapping(target = "description", source = "content")
     @Mapping(target = "assignee", source = "assigneeId")
     @Mapping(target = "taskStatus", source = "status", qualifiedByName = "statusToModel")
-    @Mapping(target = "labels", source = "taskLabelIds", qualifiedByName = "modelToLabel")
+    @Mapping(target = "labels", source = "taskLabelIds")
     public abstract Task map(TaskCreateDTO dto);
 
     @Mapping(target = "title", source = "name")
