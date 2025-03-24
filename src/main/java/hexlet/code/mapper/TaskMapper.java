@@ -59,12 +59,12 @@ public abstract class TaskMapper {
     @Mapping(target = "labels", source = "taskLabelIds", qualifiedByName = "modelToLabel")
     public abstract void update(TaskUpdateDTO dto, @MappingTarget Task model);
 
-//    @Mapping(target = "title", source = "name")
-//    @Mapping(target = "content", source = "description")
-//    @Mapping(target = "status", source = "taskStatus.slug")
-//    @Mapping(target = "assigneeId", source = "assignee.id")
-//    @Mapping(target = "taskLabelIds", source = "labels", qualifiedByName = "labelToModel")
-//    public abstract TaskCreateDTO mapToCreateDTO(Task model);
+    @Mapping(target = "title", source = "name")
+    @Mapping(target = "content", source = "description")
+    @Mapping(target = "status", source = "taskStatus.slug")
+    @Mapping(target = "assigneeId", source = "assignee.id")
+    @Mapping(target = "taskLabelIds", source = "labels", qualifiedByName = "labelToModel")
+    public abstract TaskCreateDTO mapToCreateDTO(Task model);
 
 //    public abstract List<TaskDTO> map(List<Task> tasks);
 

@@ -1,6 +1,7 @@
 package hexlet.code.model;
 
 //import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -36,8 +37,8 @@ public class TaskStatus implements BaseEntity {
     @Column(unique = true)
     private String name;
 
-    @Column(unique = true)
     @NotBlank
+    @Column(unique = true)
     private String slug;
 
     @CreatedDate

@@ -1,7 +1,9 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.dto.user.UserUpdateDTO;
+//import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
+import hexlet.code.dto.user.UserCreateDTO;
+//import hexlet.code.dto.user.UserUpdateDTO;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
@@ -10,7 +12,7 @@ import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.openapitools.jackson.nullable.JsonNullable;
+//import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -118,10 +120,15 @@ class UsersControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        var data = new UserUpdateDTO();
-        data.setFirstName(JsonNullable.of("first_name"));
-        data.setLastName(JsonNullable.of("last_name"));
-        data.setEmail(JsonNullable.of("email@email.ru"));
+//        var data = new UserUpdateDTO();
+//        data.setFirstName(JsonNullable.of("first_name"));
+//        data.setLastName(JsonNullable.of("last_name"));
+//        data.setEmail(JsonNullable.of("email@email.ru"));
+
+        testUser.setFirstName("first_name");
+        testUser.setLastName("last_name");
+        testUser.setLastName("email@email.ru");
+        UserCreateDTO data = userMapper.mapToCreateDTO(testUser);
 
         var request = put("/api/users/" + testUser.getId(), testUser.getId()).with(token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -130,9 +137,9 @@ class UsersControllerTest {
 
         var user = userRepository.findById(testUser.getId()).orElseThrow();
         assertNotNull(user);
-        assertThat(user.getFirstName()).isEqualTo((data.getFirstName().get()));
-        assertThat(user.getLastName()).isEqualTo((data.getLastName().get()));
-        assertThat(user.getEmail()).isEqualTo((data.getEmail().get()));
+        assertThat(user.getFirstName()).isEqualTo((data.getFirstName()));
+        assertThat(user.getLastName()).isEqualTo((data.getLastName()));
+        assertThat(user.getEmail()).isEqualTo((data.getEmail()));
     }
 
     @Test

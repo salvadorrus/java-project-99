@@ -1,7 +1,9 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.dto.task.TaskUpdateDTO;
+import hexlet.code.dto.task.TaskCreateDTO;
+//import hexlet.code.dto.task.TaskUpdateDTO;
+//import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
@@ -13,7 +15,7 @@ import hexlet.code.util.ModelGenerator;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openapitools.jackson.nullable.JsonNullable;
+//import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -124,9 +126,13 @@ class TaskControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        var data = new TaskUpdateDTO();
-        data.setTitle(JsonNullable.of("new_name"));
-        data.setContent(JsonNullable.of("new_description"));
+//        var data = new TaskUpdateDTO();
+//        data.setTitle(JsonNullable.of("new_name"));
+//        data.setContent(JsonNullable.of("new_description"));
+
+        testTask.setName("new_name");
+        testTask.setDescription("new_description");
+        TaskCreateDTO data = taskMapper.mapToCreateDTO(testTask);
 
         var request = put("/api/tasks/" + testTask.getId()).with(token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -135,8 +141,8 @@ class TaskControllerTest {
 
         var task = taskRepository.findById(testTask.getId()).orElseThrow();
         assertNotNull(task);
-        assertThat(task.getName()).isEqualTo(data.getTitle().get());
-        assertThat(task.getDescription()).isEqualTo(data.getContent().get());
+        assertThat(task.getName()).isEqualTo(data.getTitle());
+        assertThat(task.getDescription()).isEqualTo(data.getContent());
     }
 
     @Test

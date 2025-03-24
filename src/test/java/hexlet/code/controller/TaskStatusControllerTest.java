@@ -1,7 +1,8 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.dto.taskStatus.TaskStatusUpdateDTO;
+import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
+//import hexlet.code.dto.taskStatus.TaskStatusUpdateDTO;
 import hexlet.code.mapper.TaskStatusMapper;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
@@ -11,7 +12,7 @@ import hexlet.code.util.ModelGenerator;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openapitools.jackson.nullable.JsonNullable;
+//import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -110,9 +111,13 @@ class TaskStatusControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        var data = new TaskStatusUpdateDTO();
-        data.setName(JsonNullable.of("new_name"));
-        data.setSlug(JsonNullable.of("new_slug"));
+//        var data = new TaskStatusUpdateDTO();
+//        data.setName(JsonNullable.of("new_name"));
+//        data.setSlug(JsonNullable.of("new_slug"));
+
+        testTaskStatus.setName("new_name");
+        testTaskStatus.setSlug("new_slug");
+        TaskStatusCreateDTO data = taskStatusMapper.mapToCreateDTO(testTaskStatus);
 
         var request = put("/api/task_statuses/" + testTaskStatus.getId())
                 .with(token)
@@ -123,8 +128,8 @@ class TaskStatusControllerTest {
 
         var taskStatus = taskStatusRepository.findById(testTaskStatus.getId()).orElseThrow();
         assertNotNull(taskStatus);
-        assertThat(taskStatus.getName()).isEqualTo(data.getName().get());
-        assertThat(taskStatus.getSlug()).isEqualTo(data.getSlug().get());
+        assertThat(taskStatus.getName()).isEqualTo(data.getName());
+        assertThat(taskStatus.getSlug()).isEqualTo(data.getSlug());
     }
 
     @Test
