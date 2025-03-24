@@ -20,7 +20,7 @@ import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
-import java.util.List;
+//import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -66,7 +66,7 @@ public abstract class TaskMapper {
 //    @Mapping(target = "taskLabelIds", source = "labels", qualifiedByName = "labelToModel")
 //    public abstract TaskCreateDTO mapToCreateDTO(Task model);
 
-    public abstract List<TaskDTO> map(List<Task> tasks);
+//    public abstract List<TaskDTO> map(List<Task> tasks);
 
     @Named("statusToModel")
     public TaskStatus statusToModel(String slug) {
