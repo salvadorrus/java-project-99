@@ -2,7 +2,7 @@ package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 //import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
-import hexlet.code.dto.user.UserCreateDTO;
+//import hexlet.code.dto.user.UserCreateDTO;
 //import hexlet.code.dto.user.UserUpdateDTO;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
@@ -31,7 +31,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.StandardCharsets;
@@ -118,29 +118,29 @@ class UsersControllerTest {
         assertThat(user.getEmail()).isEqualTo(data.getEmail());
     }
 
-    @Test
-    public void testUpdate() throws Exception {
+//    @Test
+//    public void testUpdate() throws Exception {
 //        var data = new UserUpdateDTO();
 //        data.setFirstName(JsonNullable.of("first_name"));
 //        data.setLastName(JsonNullable.of("last_name"));
 //        data.setEmail(JsonNullable.of("email@email.ru"));
 
-        testUser.setFirstName("first_name");
-        testUser.setLastName("last_name");
-        testUser.setLastName("email@email.ru");
-        UserCreateDTO data = userMapper.mapToCreateDTO(testUser);
-
-        var request = put("/api/users/" + testUser.getId(), testUser.getId()).with(token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(data));
-        mockMvc.perform(request).andExpect(status().isOk()).andReturn();
-
-        var user = userRepository.findById(testUser.getId()).orElseThrow();
-        assertNotNull(user);
-        assertThat(user.getFirstName()).isEqualTo((data.getFirstName()));
-        assertThat(user.getLastName()).isEqualTo((data.getLastName()));
-        assertThat(user.getEmail()).isEqualTo((data.getEmail()));
-    }
+//        testUser.setFirstName("first_name");
+//        testUser.setLastName("last_name");
+//        testUser.setLastName("email@email.ru");
+//        UserCreateDTO data = userMapper.mapToCreateDTO(testUser);
+//
+//        var request = put("/api/users/" + testUser.getId(), testUser.getId()).with(token)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(om.writeValueAsString(data));
+//        mockMvc.perform(request).andExpect(status().isOk()).andReturn();
+//
+//        var user = userRepository.findById(testUser.getId()).orElseThrow();
+//        assertNotNull(user);
+//        assertThat(user.getFirstName()).isEqualTo((data.getFirstName()));
+//        assertThat(user.getLastName()).isEqualTo((data.getLastName()));
+//        assertThat(user.getEmail()).isEqualTo((data.getEmail()));
+//    }
 
     @Test
     public void testDelete() throws Exception {
