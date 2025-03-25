@@ -64,9 +64,7 @@ public abstract class TaskMapper {
     @Mapping(target = "status", source = "taskStatus.slug")
     @Mapping(target = "assigneeId", source = "assignee.id")
     @Mapping(target = "taskLabelIds", source = "labels", qualifiedByName = "labelToModel")
-    public abstract TaskCreateDTO mapToCreateDTO(Task model);
-
-//    public abstract List<TaskDTO> map(List<Task> tasks);
+    public abstract TaskUpdateDTO mapToUpdateDTO(Task model);
 
     @Named("statusToModel")
     public TaskStatus statusToModel(String slug) {

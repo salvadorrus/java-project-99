@@ -132,7 +132,7 @@ class TaskControllerTest {
 
 //        testTask.setName("new_name");
 //        testTask.setDescription("new_description");
-//        TaskCreateDTO data = taskMapper.mapToCreateDTO(testTask);
+//        var data = taskMapper.mapToUpdateDTO(testTask);
 //
 //        var request = put("/api/tasks/" + testTask.getId()).with(token)
 //                .contentType(MediaType.APPLICATION_JSON)
@@ -141,8 +141,8 @@ class TaskControllerTest {
 //
 //        var task = taskRepository.findById(testTask.getId()).orElseThrow();
 //        assertNotNull(task);
-//        assertThat(task.getName()).isEqualTo(data.getTitle());
-//        assertThat(task.getDescription()).isEqualTo(data.getContent());
+//        assertThat(task.getName()).isEqualTo(testTask.getName());
+//        assertThat(task.getDescription()).isEqualTo(testTask.getDescription());
 //    }
 
     @Test

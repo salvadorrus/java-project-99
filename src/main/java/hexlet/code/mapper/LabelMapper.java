@@ -21,5 +21,5 @@ public abstract class LabelMapper {
     public abstract Label map(LabelCreateDTO dto);
     public abstract LabelDTO map(Label model);
     public abstract void update(LabelUpdateDTO dto, @MappingTarget Label model);
-    public abstract LabelCreateDTO mapToCreateDTO(Label model);
+    public abstract LabelUpdateDTO mapToUpdateDTO(Label model);
 }
