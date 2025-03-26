@@ -117,11 +117,13 @@ class TaskControllerTest {
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
 
-        var task = taskRepository.findById(data.getId()).orElse(null);
+        var task = taskRepository.findById(testTask.getId()).orElse(null);
         assertNotNull(task);
-        assertThat(task.getName()).isEqualTo(data.getTitle());
-        assertThat(task.getDescription()).isEqualTo(data.getContent());
-        assertThat(task.getIndex()).isEqualTo(data.getIndex());
+        assertThat(task.getName()).isEqualTo(testTask.getName());
+        assertThat(task.getDescription()).isEqualTo(testTask.getDescription());
+        assertThat(task.getIndex()).isEqualTo(testTask.getIndex());
+        assertThat(task.getTaskStatus().getSlug()).isEqualTo(testTask.getTaskStatus().getSlug());
+        assertThat(task.getAssignee().getFirstName()).isEqualTo(testTask.getAssignee().getFirstName());
     }
 
 //    @Test
