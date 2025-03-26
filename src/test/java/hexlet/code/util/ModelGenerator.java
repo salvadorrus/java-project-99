@@ -46,7 +46,7 @@ public class ModelGenerator {
                 .ignore(Select.field(Task::getId))
                 .ignore(Select.field(Task::getAssignee))
                 .ignore(Select.field(Task::getTaskStatus))
-                .ignore(Select.field(Task::getLabels))
+//                .ignore(Select.field(Task::getLabels))
                 .supply(Select.field(Task::getName), () -> faker.name().title())
                 .supply(Select.field(Task::getIndex), () -> faker.number().positive())
                 .supply(Select.field(Task::getDescription), () -> faker.lorem().sentence())

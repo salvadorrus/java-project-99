@@ -44,7 +44,7 @@ public class LabelController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LabelDTO create(@RequestBody LabelCreateDTO labelData) {
+    public LabelDTO create(@Valid @RequestBody LabelCreateDTO labelData) {
         return labelService.create(labelData);
     }
 
