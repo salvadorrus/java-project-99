@@ -98,9 +98,9 @@ class LabelControllerTest {
                 .content(om.writeValueAsString(data));
         mockMvc.perform(request).andExpect(status().isCreated());
 
-        var label = labelRepository.findByName(data.getName()).orElse(null);
+        var label = labelRepository.findByName(testLabel.getName()).orElse(null);
         assertNotNull(label);
-        assertThat(label.getName()).isEqualTo(data.getName());
+        assertThat(label.getName()).isEqualTo(testLabel.getName());
     }
 
     @Test
