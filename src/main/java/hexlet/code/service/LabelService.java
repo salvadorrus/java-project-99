@@ -39,7 +39,7 @@ public class LabelService {
 
     public LabelDTO update(LabelUpdateDTO labelData, Long id) {
         var label = labelRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Not Found: " + id));
         labelMapper.update(labelData, label);
         labelRepository.save(label);
         return labelMapper.map(label);
