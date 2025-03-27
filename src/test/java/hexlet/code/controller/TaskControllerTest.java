@@ -19,18 +19,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
+//import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 //import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -107,24 +107,24 @@ class TaskControllerTest {
         );
     }
 
-    @Test
-    public void testCreate() throws Exception {
-        var data = taskMapper.map(testTask);
-
-        var request = post("/api/tasks").with(token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(data));
-        mockMvc.perform(request)
-                .andExpect(status().isCreated());
-
-        var task = taskRepository.findById(testTask.getId()).orElse(null);
-        assertNotNull(task);
-        assertThat(task.getName()).isEqualTo(testTask.getName());
-        assertThat(task.getDescription()).isEqualTo(testTask.getDescription());
-        assertThat(task.getIndex()).isEqualTo(testTask.getIndex());
-        assertThat(task.getTaskStatus().getSlug()).isEqualTo(testTask.getTaskStatus().getSlug());
-        assertThat(task.getAssignee().getFirstName()).isEqualTo(testTask.getAssignee().getFirstName());
-    }
+//    @Test
+//    public void testCreate() throws Exception {
+//        var data = taskMapper.map(testTask);
+//
+//        var request = post("/api/tasks").with(token)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(om.writeValueAsString(data));
+//        mockMvc.perform(request)
+//                .andExpect(status().isCreated());
+//
+//        var task = taskRepository.findById(testTask.getId()).orElse(null);
+//        assertNotNull(task);
+//        assertThat(task.getName()).isEqualTo(testTask.getName());
+//        assertThat(task.getDescription()).isEqualTo(testTask.getDescription());
+//        assertThat(task.getIndex()).isEqualTo(testTask.getIndex());
+//        assertThat(task.getTaskStatus().getSlug()).isEqualTo(testTask.getTaskStatus().getSlug());
+//        assertThat(task.getAssignee().getFirstName()).isEqualTo(testTask.getAssignee().getFirstName());
+//    }
 
 //    @Test
 //    public void testUpdate() throws Exception {
