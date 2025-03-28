@@ -1,9 +1,6 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
-//import hexlet.code.dto.user.UserCreateDTO;
-//import hexlet.code.dto.user.UserUpdateDTO;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
@@ -12,13 +9,11 @@ import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-//import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-//import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -38,7 +33,6 @@ import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class UsersControllerTest {
 
     @Autowired
@@ -120,11 +114,6 @@ class UsersControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-//        var data = new UserUpdateDTO();
-//        data.setFirstName(JsonNullable.of("first_name"));
-//        data.setLastName(JsonNullable.of("last_name"));
-//        data.setEmail(JsonNullable.of("email@email.ru"));
-
         testUser.setFirstName("first_name");
         testUser.setLastName("last_name");
         testUser.setLastName("email@email.ru");

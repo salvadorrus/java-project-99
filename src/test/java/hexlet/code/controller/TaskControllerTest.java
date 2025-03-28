@@ -1,9 +1,6 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import hexlet.code.dto.task.TaskCreateDTO;
-//import hexlet.code.dto.task.TaskUpdateDTO;
-//import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
@@ -16,13 +13,11 @@ import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-//import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-//import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
@@ -37,7 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class TaskControllerTest {
 
     @Autowired
@@ -83,14 +77,11 @@ class TaskControllerTest {
         testTask.setTaskStatus(testTaskStatus);
         testTask.setAssignee(testUser);
         taskRepository.save(testTask);
-
     }
 
     @AfterEach
     public void clear() {
         taskRepository.deleteAll();
-        taskStatusRepository.deleteAll();
-        userRepository.deleteAll();
     }
 
     @Test
@@ -126,6 +117,7 @@ class TaskControllerTest {
                 .andExpect(status().isCreated());
 
         var task = taskRepository.findById(testTask.getId()).orElse(null);
+
         assertNotNull(task);
         assertThat(task.getName()).isEqualTo(testTask.getName());
         assertThat(task.getDescription()).isEqualTo(testTask.getDescription());
@@ -136,10 +128,6 @@ class TaskControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-//        var data = new TaskUpdateDTO();
-//        data.setTitle(JsonNullable.of("new_name"));
-//        data.setContent(JsonNullable.of("new_description"));
-
         testTask.setName("new_name");
         testTask.setDescription("new_description");
         var data = taskMapper.mapToUpdateDTO(testTask);

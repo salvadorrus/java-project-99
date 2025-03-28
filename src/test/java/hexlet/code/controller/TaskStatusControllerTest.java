@@ -1,8 +1,6 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
-//import hexlet.code.dto.taskStatus.TaskStatusUpdateDTO;
 import hexlet.code.mapper.TaskStatusMapper;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
@@ -12,13 +10,11 @@ import hexlet.code.util.ModelGenerator;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-//import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-//import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
@@ -33,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class TaskStatusControllerTest {
 
     @Autowired
@@ -111,10 +106,6 @@ class TaskStatusControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-//        var data = new TaskStatusUpdateDTO();
-//        data.setName(JsonNullable.of("new_name"));
-//        data.setSlug(JsonNullable.of("new_slug"));
-
         testTaskStatus.setName("new_name");
         testTaskStatus.setSlug("new_slug");
         var data = taskStatusMapper.mapToUpdateDTO(testTaskStatus);
